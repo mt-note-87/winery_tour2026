@@ -1,0 +1,29 @@
+# Secrets & credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+secrets.yml
+secrets.yaml
+*_secret*
+*_token*
+.npmrc
+.netrc
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Dependencies / build output
+node_modules/
+dist/
+build/
