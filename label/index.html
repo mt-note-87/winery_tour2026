@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ワインラベルの読み方 | Winery Tour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --desk:#e7e4de;
+    --desk2:#efece6;
+    --page:#fafafa;
+    --page-edge:#dcdcdc;
+    --ink:#1c1c1c;
+    --wine:#8c1d5b;
+    --wine-deep:#751049;
+    --wine-soft:#a8407c;
+    --body:#2b2b2b;
+    --muted:#6f6f6f;
+    --ring:#cfcfcf;
+    --ring-shadow:#9a9a9a;
+    --line:#161616;
+    --box:#cfcfcf;
+    --vine:#5a7d3c;
+    --grape:#7b4a8c;
+    --sky:#7fa8c9;
+    --gold:#c89b4a;
+    --rose:#c97a86;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;
+    color:var(--body);
+    background:
+      radial-gradient(circle at 20% 0%, #f1eee8 0%, transparent 55%),
+      radial-gradient(circle at 90% 100%, #eae6df 0%, transparent 50%),
+      var(--desk);
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:.01em;
+  }
+
+  /* ---------- top nav ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,250,250,.82);
+    backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid #d9d5cd;
+  }
+  .topbar-inner{
+    max-width:1040px;margin:0 auto;
+    display:flex;align-items:center;gap:.9rem;
+    padding:.6rem clamp(1rem,4vw,2rem);
+  }
+  .brand{
+    font-family:"Quicksand",sans-serif;font-weight:700;
+    color:var(--wine);font-size:1.02rem;letter-spacing:.02em;
+    white-space:nowrap;
+  }
+  .brand small{display:block;font-family:"Zen Kaku Gothic New";font-weight:500;color:var(--muted);font-size:.62rem;letter-spacing:.04em;}
+  .nav{margin-left:auto;display:flex;gap:.35rem;flex-wrap:wrap;}
+  .nav a{
+    text-decoration:none;color:var(--ink);font-weight:500;
+    font-size:.82rem;padding:.32rem .7rem;border-radius:999px;
+    transition:.18s background,.18s color;white-space:nowrap;
+  }
+  .nav a:hover,.nav a:focus-visible{background:var(--wine);color:#fff;outline:none;}
+
+  /* ---------- page (notebook sheet) ---------- */
+  .wrap{max-width:1040px;margin:0 auto;padding:clamp(1.1rem,4vw,2.6rem) clamp(.7rem,3vw,1.6rem);}
+  .sheet{
+    position:relative;
+    background:var(--page);
+    border:1px solid var(--page-edge);
+    border-radius:18px;
+    box-shadow:0 18px 40px -18px rgba(0,0,0,.28), 0 2px 0 rgba(0,0,0,.02);
+    padding:clamp(1.4rem,3.5vw,2.6rem) clamp(1.2rem,4vw,3rem) clamp(1.8rem,4vw,2.8rem) clamp(3.2rem,7vw,4.6rem);
+    margin-bottom:clamp(1.6rem,4vw,2.8rem);
+    overflow:hidden;
+  }
+  /* spiral binding */
+  .spiral{
+    position:absolute;left:0;top:0;bottom:0;
+    width:clamp(2.2rem,5.5vw,3.2rem);
+    display:flex;flex-direction:column;align-items:center;
+    justify-content:space-around;
+    padding:1.4rem 0;
+    pointer-events:none;
+  }
+  .ring{
+    width:clamp(20px,3.4vw,30px);height:clamp(10px,1.7vw,15px);
+    border:3px solid var(--ring);
+    border-bottom-color:var(--ring-shadow);
+    border-radius:50%/100% 100% 0 0;
+    transform:rotate(-8deg);
+    background:linear-gradient(180deg,#fff,#e3e3e3);
+  }
+  .hole{
+    position:absolute;left:clamp(1.5rem,4vw,2.3rem);
+    width:9px;height:9px;border-radius:50%;
+    background:#cfcfcf;box-shadow:inset 0 1px 2px rgba(0,0,0,.35);
+  }
+
+  /* pen */
+  .pen{position:absolute;top:-14px;right:clamp(1.5rem,8vw,5rem);width:clamp(70px,12vw,120px);z-index:2;}
+
+  /* ---------- headers ---------- */
+  .head-rule{border:none;border-top:3px solid var(--line);margin:0;}
+  .sheet-head{display:flex;flex-wrap:wrap;gap:.6rem 2rem;align-items:flex-end;padding:1.1rem .2rem 1.1rem;}
+  .sheet-head .titles{flex:1 1 320px;min-width:0;}
+  h1.en{
+    font-family:"Quicksand",sans-serif;font-weight:700;color:var(--ink);
+    font-size:clamp(1.9rem,5.5vw,2.9rem);line-height:1.05;margin:0;
+    display:flex;align-items:baseline;flex-wrap:wrap;gap:.2rem .7rem;letter-spacing:.01em;
+  }
+  h1.en .dates{font-size:clamp(1.05rem,3vw,1.45rem);font-weight:600;color:var(--ink);}
+  .sub-jp{
+    font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--wine);
+    font-size:clamp(1.05rem,3.4vw,1.45rem);margin:.35rem 0 0;letter-spacing:.02em;
+  }
+  .head-jp h1.en{font-family:"Zen Kaku Gothic New";font-weight:900;}
+  .head-lead{flex:0 1 360px;color:var(--body);font-size:clamp(.85rem,2.3vw,.95rem);line-height:1.8;align-self:flex-end;padding-bottom:.2rem;}
+
+  /* ---------- winery cards ---------- */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,3vw,2rem);margin-top:1.8rem;}
+  .winery h2{
+    font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--ink);
+    font-size:clamp(1.15rem,2.6vw,1.4rem);margin:0 0 .8rem;line-height:1.3;letter-spacing:.01em;
+  }
+  .photos{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:6px;margin-bottom:1rem;}
+  .ph{
+    aspect-ratio:1/1;border-radius:4px;position:relative;overflow:hidden;
+    display:flex;align-items:flex-end;justify-content:flex-start;
+    color:rgba(255,255,255,.92);font-size:.66rem;font-weight:500;
+    padding:.4rem .5rem;letter-spacing:.04em;
+  }
+  .ph.tall{grid-row:span 2;aspect-ratio:auto;}
+  .ph.wide{grid-column:span 2;aspect-ratio:2/1;}
+  .ph svg{position:absolute;inset:0;width:100%;height:100%;opacity:.9;}
+  .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .ph span{position:relative;z-index:1;text-shadow:0 1px 3px rgba(0,0,0,.4);}
+  .ph .icn{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);width:30%;opacity:.55;z-index:0;}
+
+  .winery h3{
+    font-family:"Zen Maru Gothic",sans-serif;color:var(--wine);font-weight:700;
+    font-size:clamp(1rem,2.4vw,1.12rem);margin:0 0 .5rem;letter-spacing:.02em;
+  }
+  .winery p{margin:0 0 1.1rem;font-size:.9rem;}
+  .infobox{
+    border:1px solid #444;border-radius:2px;padding:.85rem 1rem;
+    font-size:.86rem;background:#fff;line-height:1.7;
+  }
+  .infobox .lbl{font-weight:700;color:var(--ink);}
+  .infobox .day{font-weight:700;}
+  .infobox a{color:var(--wine);word-break:break-all;text-decoration:none;border-bottom:1px solid var(--wine-soft);}
+  .infobox a:hover{color:var(--wine-deep);}
+  .rec{color:var(--ink);}
+
+  /* ---------- workshop steps ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,3vw,2rem);margin-top:1.8rem;}
+  .step h2{
+    font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--wine);
+    font-size:clamp(1.05rem,2.6vw,1.32rem);margin:0 0 .8rem;letter-spacing:.01em;line-height:1.3;
+    min-height:2.6em;
+  }
+  .step h2 .num{color:var(--wine);}
+  .illus{
+    border:1.5px solid #2a2a2a;border-radius:4px;background:#fff;
+    aspect-ratio:4/3;width:100%;margin-bottom:1rem;
+  }
+  img.illus{display:block;height:auto;object-fit:contain;aspect-ratio:auto;}
+  .step p{margin:0 0 1rem;font-size:.9rem;}
+  .step .note{color:var(--muted);font-size:.85rem;}
+
+  /* ---------- tour info box ---------- */
+  .tourbox{
+    border:1.5px solid var(--wine);border-radius:4px;
+    padding:clamp(1.1rem,3vw,1.6rem) clamp(1.1rem,3.5vw,2rem);
+    margin-top:2.2rem;background:#fff;
+  }
+  .tourbox h3{font-family:"Zen Maru Gothic";color:var(--ink);font-weight:700;font-size:1.12rem;margin:0 0 .8rem;}
+  .tourbox .row{margin:.35rem 0;font-size:.92rem;}
+  .tourbox .hotel{font-weight:500;}
+  .tourbox .hotel a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--wine-soft);}
+  .price{display:flex;flex-wrap:wrap;gap:.2rem .6rem;align-items:baseline;margin:.55rem 0;}
+  .price b{color:var(--wine);font-size:1.02rem;white-space:nowrap;}
+  .price .inc{color:var(--muted);font-size:.82rem;}
+
+  /* ---------- schedule ---------- */
+  .sched-layout{display:grid;grid-template-columns:1fr 280px;gap:clamp(1.4rem,4vw,2.6rem);margin-top:1.6rem;align-items:start;}
+  .day-tag{
+    display:inline-block;font-family:"Zen Maru Gothic";font-weight:700;color:var(--wine);
+    font-size:1.25rem;margin:1.4rem 0 .7rem;letter-spacing:.02em;
+  }
+  .day-tag:first-child{margin-top:0;}
+  .timeline{list-style:none;margin:0;padding:0;}
+  .timeline li{
+    display:grid;grid-template-columns:auto 1fr;gap:.7rem;
+    padding:.5rem 0 .5rem .2rem;align-items:baseline;
+    border-bottom:1px dashed #d9d9d9;font-size:.92rem;
+  }
+  .timeline .time{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);white-space:nowrap;font-size:.9rem;}
+  .timeline .ev u, .timeline .ev a{text-underline-offset:3px;color:var(--ink);text-decoration-color:var(--wine-soft);}
+  .timeline .ev a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--wine-soft);}
+  .alt-note{font-size:.85rem;color:var(--muted);padding:.6rem .2rem;border-bottom:none;}
+  .alt-note b{color:var(--wine-deep);}
+  .sched-imgs{display:flex;flex-direction:column;gap:1rem;}
+  .sched-imgs .ph{aspect-ratio:3/2;border-radius:6px;}
+  .footnote{margin-top:1.8rem;font-size:.85rem;color:var(--muted);border-top:1px solid #e4e4e4;padding-top:1rem;}
+  .bottom-photo{margin-top:1.8rem;}
+  .bottom-photo figure{margin:0;}
+  .bottom-photo img{width:100%;height:auto;max-height:340px;object-fit:cover;border-radius:8px;display:block;}
+  .bottom-photo figcaption{margin-top:.5rem;font-size:.82rem;color:var(--muted);text-align:center;}
+
+  /* ---------- cta / footer ---------- */
+  .cta-sheet{text-align:center;}
+  .cta-sheet h2{font-family:"Zen Maru Gothic";color:var(--wine);font-size:clamp(1.3rem,4vw,1.7rem);margin:.4rem 0 .6rem;}
+  .cta-sheet p{margin:0 auto 1.6rem;max-width:560px;color:var(--body);}
+  .cta-btn{
+    display:inline-block;background:var(--wine);color:#fff;text-decoration:none;
+    font-family:"Zen Maru Gothic";font-weight:700;font-size:1.02rem;
+    padding:.9rem 2.4rem;border-radius:999px;letter-spacing:.04em;
+    box-shadow:0 10px 22px -10px var(--wine);transition:.2s transform,.2s box-shadow,.2s background;
+  }
+  .cta-btn:hover,.cta-btn:focus-visible{background:var(--wine-deep);transform:translateY(-2px);box-shadow:0 16px 28px -12px var(--wine);outline:none;}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;padding:.5rem 1rem 2.5rem;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:820px){
+    .sched-layout{grid-template-columns:1fr;}
+    .sched-imgs{flex-direction:row;flex-wrap:wrap;}
+    .sched-imgs .ph{flex:1 1 30%;min-width:140px;}
+  }
+  @media (max-width:680px){
+    .grid3,.steps{grid-template-columns:1fr;gap:1.8rem;}
+    .winery,.step{padding-bottom:.4rem;border-bottom:1px dashed #e2e2e2;}
+    .winery:last-child,.step:last-child{border-bottom:none;}
+    .head-lead{flex-basis:100%;padding-top:.3rem;}
+    .step h2{min-height:0;}
+    .nav{display:none;}
+    .topbar-inner{justify-content:center;}
+    .photos{grid-template-columns:1fr 1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto !important;transition:none !important;}
+  }
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ---------- label page additions ---------- */
+  .head-jp h1.en{font-size:clamp(1.5rem,4.6vw,2.3rem);}
+  .sheet-head .titles{flex:1 1 380px;}
+  h2.sec{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--wine);font-size:clamp(1.1rem,2.8vw,1.35rem);margin:1.8rem 0 .7rem;}
+  .lead-p{margin:1.4rem 0 0;font-size:.95rem;}
+  .chips{display:flex;flex-wrap:wrap;gap:.45rem;margin:.9rem 0 0;padding:0;list-style:none;}
+  .chips li{background:#fff;border:1.5px solid var(--wine);color:var(--wine-deep);border-radius:999px;padding:.25rem .85rem;font-size:.85rem;font-weight:700;}
+  .callout{border-left:4px solid var(--wine);background:#fff;padding:.9rem 1.1rem;margin:1.4rem 0 0;font-size:.95rem;border-radius:0 4px 4px 0;}
+  .callout b{color:var(--wine-deep);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,1.8rem);margin-top:1.2rem;}
+  .card{background:#fff;border:1px solid #444;border-radius:2px;padding:1rem 1.1rem;font-size:.9rem;}
+  .card h3{font-family:"Zen Maru Gothic";color:var(--wine);margin:0 0 .4rem;font-size:1.05rem;}
+  .card p{margin:0;}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:1rem 0 0;}
+  .flow span{background:var(--wine);color:#fff;border-radius:999px;padding:.3rem 1rem;font-weight:700;font-size:.9rem;}
+  .flow i{font-style:normal;color:var(--wine);font-weight:700;}
+  .fine{font-size:.82rem;color:var(--muted);margin-top:1.2rem;}
+  .tbl{width:100%;border-collapse:collapse;margin-top:1.2rem;font-size:.9rem;background:#fff;}
+  .tbl th,.tbl td{border:1px solid #bbb;padding:.55rem .7rem;text-align:left;vertical-align:top;}
+  .tbl th{background:#f3e9ef;color:var(--wine-deep);white-space:nowrap;}
+  .types{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.1rem,3vw,1.8rem);margin-top:1.6rem;}
+  .type{display:flex;flex-direction:column;}
+  .type .pic{height:200px;background:#fff;border:1.5px solid #2a2a2a;border-radius:4px;display:flex;align-items:center;justify-content:center;margin-bottom:.8rem;padding:.4rem;}
+  .type .pic img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;display:block;}
+  .type h3{font-family:"Zen Maru Gothic";color:var(--wine);font-size:1.15rem;margin:0;line-height:1.3;}
+  .type h3 small{display:block;color:var(--muted);font-size:.8rem;font-weight:500;}
+  .type ul{margin:.5rem 0;padding-left:1.1rem;font-size:.88rem;}
+  .type .imp{font-size:.88rem;margin:.2rem 0;}
+  .type .imp b,.type .eg b{color:var(--ink);}
+  .type .eg{font-size:.85rem;color:var(--muted);margin:.2rem 0 0;}
+  /* positioning map */
+  .pmap{position:relative;width:100%;aspect-ratio:1/.95;background:#fff;border:1.5px solid #2a2a2a;border-radius:4px;margin-top:1.2rem;overflow:hidden;}
+  .pmap::before,.pmap::after{content:"";position:absolute;background:#161616;}
+  .pmap::before{left:50%;top:4%;bottom:4%;width:2px;}
+  .pmap::after{top:50%;left:3%;right:3%;height:2px;}
+  .ax{position:absolute;font-weight:700;font-size:.82rem;color:var(--wine-deep);background:#fff;padding:.1rem .5rem;border:1.5px solid var(--wine);border-radius:3px;z-index:2;}
+  .ax.t{top:1.5%;left:50%;transform:translateX(-50%);}
+  .ax.b{bottom:1.5%;left:50%;transform:translateX(-50%);}
+  .ax.l{left:1%;top:50%;transform:translateY(-50%);}
+  .ax.r{right:1%;top:50%;transform:translateY(-50%);}
+  .scene{position:absolute;z-index:1;font-family:"Zen Maru Gothic";font-weight:700;color:#999;font-size:clamp(.8rem,2.2vw,1.1rem);opacity:.85;}
+  .bottle{position:absolute;transform:translate(-50%,-50%);width:clamp(46px,9vw,80px);text-align:center;z-index:3;}
+  .bottle img{width:100%;height:clamp(80px,17vw,140px);object-fit:contain;display:block;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25));}
+  .bottle span{display:block;font-size:clamp(.58rem,1.5vw,.74rem);line-height:1.25;font-weight:700;color:var(--ink);background:rgba(255,255,255,.85);margin-top:2px;width:max-content;max-width:120px;position:relative;left:50%;transform:translateX(-50%);}
+  .bottle span small{display:block;font-weight:500;color:var(--muted);}
+  .task{border:1.5px solid var(--wine);border-radius:4px;background:#fff;padding:1rem 1.2rem;margin-top:1.4rem;}
+  .task b{color:var(--wine);}
+  /* wine maps */
+  .wmaps{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,1.8rem);margin-top:1.4rem;}
+  .wm h3{font-family:"Zen Maru Gothic";margin:0 0 .5rem;font-size:1.1rem;}
+  .wm.red h3{color:#9b1c3c}.wm.white h3{color:#a7861f}
+  .wm .plot{position:relative;aspect-ratio:1/1;background:#fff;border:1.5px solid #2a2a2a;border-radius:4px;margin-bottom:1.5rem;}
+  .wm .yl,.wm .xl{position:absolute;font-size:.7rem;color:var(--muted);}
+  .wm .yl{left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between;padding:.25rem .4rem;pointer-events:none;}
+  .wm .xl{left:0;right:0;bottom:-1.2rem;display:flex;justify-content:space-between;}
+  .dot{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;font-size:clamp(.6rem,1.5vw,.72rem);font-weight:700;line-height:1.2;text-align:center;width:max-content;max-width:110px;}
+  .dot::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px rgba(255,255,255,.9);margin-bottom:2px;}
+  .dot small{font-weight:500;color:var(--muted);font-size:.9em;}
+  .wm.red{--c:#9b1c3c}.wm.white{--c:#d4b13a}
+  .omake{display:inline-block;background:var(--wine);color:#fff;font-family:"Zen Maru Gothic";font-weight:700;border-radius:999px;padding:.15rem .9rem;font-size:.85rem;margin-bottom:.4rem;}
+  .back{display:inline-block;margin-top:.6rem;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--wine-soft);font-size:.9rem;}
+  @media (max-width:820px){.types{grid-template-columns:1fr 1fr;}}
+  @media (max-width:680px){.two,.wmaps,.types{grid-template-columns:1fr;}.type .pic{height:180px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../" style="text-decoration:none">Winery Tour<small>ワインラベルの読み方</small></a>
+    <nav class="nav" aria-label="ページ内ナビ">
+      <a href="#why">ラベルとブランド</a>
+      <a href="#types">8タイプ</a>
+      <a href="#workshop">ワークショップ</a>
+      <a href="#omake">おまけ</a>
+    </nav>
+  </div>
+</div>
+<div class="wrap">
+
+  <section class="sheet reveal head-jp" id="why">
+    <div class="spiral" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
+    <hr class="head-rule">
+    <div class="sheet-head">
+      <div class="titles">
+        <h1 class="en">ワインラベルとブランド</h1>
+        <p class="sub-jp">ラベルは「沈黙のセールスマン」</p>
+      </div>
+      <p class="head-lead">近年のワインマーケティング研究のポイントを、6つのトピックにまとめました。</p>
+    </div>
+    <hr class="head-rule">
+
+    <p class="lead-p">消費者は購入前に中身を味わえないため、<b>ラベルからブランドの個性や品質を推測</b>します。ラベルは「沈黙のセールスマン（silent salesperson）」であり、ブランドそのものを表現します。特にイラストは、次のようなメッセージを視覚的に伝えます。</p>
+    <ul class="chips"><li>生産者の哲学</li><li>地域性（テロワール）</li><li>伝統性</li><li>革新性</li><li>高級感</li><li>親しみやすさ</li></ul>
+
+    <h2 class="sec">研究から分かる6つのポイント</h2>
+    <table class="tbl">
+      <tr><th>① ブランド・ポジショニング</th><td>デザイン様式で、ブランドの認識が変わる。<br><b>伝統的</b>（シャトー・紋章・ブドウ畑・歴史的建築）→ 格式・正統性・高品質・歴史。<br><b>現代的・抽象的</b>（ミニマル・コンセプチュアルアート）→ モダン・プレミアム感・都市的ライフスタイル。<br>イラストは「どんなブランドか」を瞬時に伝える<b>ブランドコード</b>。</td></tr>
+      <tr><th>② 品質評価</th><td>ワインは購入前に品質を判断しきれない<b>「経験財」</b>。色・イラスト・文字・構図などの外的手掛かりから品質を推測する。2026年の研究では、<b>イラストとラベルカラーが知覚品質に最も強く影響</b>し、フォントや文字色より重要と報告。「高品質そうなイラスト」は、味を知らなくてもブランド価値を高める。</td></tr>
+      <tr><th>③ ブランド記憶</th><td>アイトラッキング研究：動物・鳥・昆虫のイラストのラベルは、早く視線を集め、長く見られ、記憶されやすい。視線が長く留まるほど、選ばれる可能性も高い。<br>
+        <div class="flow"><span>視認性</span><i>→</i><span>記憶</span><i>→</i><span>ブランド想起</span><i>→</i><span>購買</span></div>
+        独自のイラストは重要な<b>ブランド資産</b>。</td></tr>
+      <tr><th>④ ブランドストーリー</th><td>ストーリーテリングは成功の鍵。イラストは文章より素早く、産地・神話・家族の歴史・自然環境・文化的背景を伝える。<br>動物 → 自然との共生　／　手描き風の人物 → クラフト感　／　地図や風景 → 地域性</td></tr>
+      <tr><th>⑤ 目立つ ≠ 高級</th><td>ユーモラス・漫画的・ポップなイラストは注目を集めやすい一方、<b>高級感・信頼性・格式を下げる</b>場合もある。</td></tr>
+    </table>
+    <div class="two">
+      <div class="card"><h3>プレミアムブランド</h3><p>伝統的・洗練されたイラスト</p></div>
+      <div class="card"><h3>若年層向けブランド</h3><p>遊び心のあるイラスト</p></div>
+    </div>
+    <div class="callout">⑤の結論：<b>ブランド戦略によって、イラストの使い分けが必要</b>です。</div>
+
+  </section>
+
+  <section class="sheet reveal head-jp" id="types">
+    <div class="spiral" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
+    <hr class="head-rule">
+    <div class="sheet-head">
+      <div class="titles">
+        <h1 class="en">ラベルデザインの8タイプ</h1>
+        <p class="sub-jp">どんな「印象」を与えるか</p>
+      </div>
+      <p class="head-lead">ワインラベルのデザインは、大きく8つのスタイルに分けられます。</p>
+    </div>
+    <hr class="head-rule">
+    <div class="types">
+      <article class="type">
+        <div class="pic"><img src="img/classic.png" alt="クラシックなラベルのワイン（シャトー・マルゴー）" loading="lazy"></div>
+        <h3>クラシック<small>伝統・格式</small></h3>
+        <ul><li>城・シャトーの絵</li><li>紋章（エンブレム）</li><li>手書き風の筆記体</li><li>クリーム色や白の落ち着いた背景</li></ul>
+        <p class="imp"><b>印象：</b>伝統、歴史、格式、安心感</p>
+        <p class="eg"><b>例：</b>ボルドー、ブルゴーニュの多くの生産者。ヨーロッパの老舗ワイナリーに多いスタイル</p>
+      </article>
+      <article class="type">
+        <div class="pic"><img src="img/minimal.png" alt="ミニマルなラベルのワイン（クラウディ・ベイ）" loading="lazy"></div>
+        <h3>ミニマル<small>シンプル・洗練</small></h3>
+        <ul><li>余白を活かした白地</li><li>幾何学模様</li><li>シンプルなフォント</li><li>色数が少ない</li></ul>
+        <p class="imp"><b>印象：</b>スタイリッシュ、都会的、現代的</p>
+        <p class="eg"><b>例：</b>ニューワールド（NZ、オーストラリア、カリフォルニア）。近年増えているモダンデザイン</p>
+      </article>
+      <article class="type">
+        <div class="pic"><img src="img/art.png" alt="アートなラベルのワイン（オーパス・ワン）" loading="lazy"></div>
+        <h3>アート<small>絵画・イラスト</small></h3>
+        <ul><li>抽象画</li><li>水彩イラスト</li><li>ポップアート</li><li>アーティストとのコラボ作品</li></ul>
+        <p class="imp"><b>印象：</b>個性的、芸術的、感性重視</p>
+        <p class="eg"><b>例：</b>ガレージワイン、自然派ワインに多い。造り手の個性を強く出すタイプ</p>
+      </article>
+      <article class="type">
+        <div class="pic"><img src="img/natural.jpg" alt="自然・風景をテーマにしたラベル" loading="lazy"></div>
+        <h3>自然・風景<small>ナチュラル</small></h3>
+        <ul><li>ブドウ畑の風景</li><li>山・川・太陽</li><li>動物（鳥、鹿、馬など）</li><li>植物の線画</li></ul>
+        <p class="imp"><b>印象：</b>ナチュラル、オーガニック、素朴</p>
+        <p class="eg"><b>例：</b>ビオワイン、サステナブル系。畑や自然をテーマにしたラベル</p>
+      </article>
+      <article class="type">
+        <div class="pic"><img src="img/character.jpg" alt="キャラクターを使ったラベル" loading="lazy"></div>
+        <h3>キャラクター<small>動物・人物</small></h3>
+        <ul><li>動物（猫、犬、熊、羊など）</li><li>人物のイラスト</li><li>マスコットキャラクター</li></ul>
+        <p class="imp"><b>印象：</b>カジュアル、親しみやすい、ポップ</p>
+        <p class="eg"><b>例：</b>スーパーやカジュアルワインで人気。親しみやすく記憶に残るデザイン</p>
+      </article>
+      <article class="type">
+        <div class="pic"><img src="img/typo.jpg" alt="タイポグラフィのラベル" loading="lazy"></div>
+        <h3>タイポグラフィ<small>文字</small></h3>
+        <ul><li>大きなブランド名</li><li>太字・縦書き・斜め配置</li><li>モノクロ構成</li></ul>
+        <p class="imp"><b>印象：</b>力強い、モダン、印象的</p>
+        <p class="eg"><b>例：</b>アメリカやチリのモダンワイナリー。文字の配置やフォントで魅せるデザイン</p>
+      </article>
+      <article class="type">
+        <div class="pic"><img src="img/story.png" alt="ストーリー性のあるラベル" loading="lazy"></div>
+        <h3>ストーリー<small>物語性</small></h3>
+        <ul><li>家族の写真</li><li>歴史的な建物</li><li>伝説や神話のモチーフ</li><li>造り手の人生を象徴する絵</li></ul>
+        <p class="imp"><b>印象：</b>情緒的、温かい、ブランドの世界観が強い</p>
+        <p class="eg"><b>例：</b>ラベルに物語を込めるタイプ</p>
+      </article>
+      <article class="type">
+        <div class="pic"><img src="img/luxury.png" alt="ラグジュアリーなラベル" loading="lazy"></div>
+        <h3>ラグジュアリー<small>高級感</small></h3>
+        <ul><li>金箔・銀箔</li><li>エンボス加工</li><li>黒×金の配色</li><li>重厚なロゴ</li></ul>
+        <p class="imp"><b>印象：</b>高級、重厚、特別感</p>
+        <p class="eg"><b>例：</b>高級シャンパーニュ、プレミアム赤ワイン。高価格帯のワインに多い</p>
+      </article>
+    </div>
+    <p class="fine">※画像は各スタイルのイメージ例です。</p>
+  </section>
+
+  <section class="sheet reveal head-jp" id="workshop">
+    <div class="spiral" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
+    <hr class="head-rule">
+    <div class="sheet-head">
+      <div class="titles">
+        <h1 class="en">ワークショップ課題</h1>
+        <p class="sub-jp">ラベルでポジショニングマップを作ろう</p>
+      </div>
+      <p class="head-lead">ワイナリーで撮影したラベルの写真を、「伝統的⇔革新的」「落ち着いた色⇔色鮮やか」の2軸で整理します。</p>
+    </div>
+    <hr class="head-rule">
+
+    <div class="task"><b>課題：</b>ワインラベルの写真をとって、ポジショニングマップを作ろう。<br>下の図は、7本のラベルを配置した<b>例</b>です。縦軸は「伝統的／革新的」、横軸は「色鮮やか／落ち着いた色」。4つのエリアには、ワインを贈る・飲む<b>シーン</b>が割り当てられています。</div>
+    <div class="pmap" role="img" aria-label="ワインラベルのポジショニングマップ例">
+      <span class="ax t">伝統的</span><span class="ax b">革新的</span><span class="ax l">色鮮やか</span><span class="ax r">落ち着いた色</span>
+      <span class="scene" style="left:3%;top:8%">上司への貢ぎ物</span>
+      <span class="scene" style="right:3%;top:8%">親へのお土産</span>
+      <span class="scene" style="left:3%;bottom:3%">友人とパーティ</span>
+      <span class="scene" style="right:3%;bottom:3%">夫婦でしっぽり</span>
+      <div class="bottle" style="left:11%;top:34%"><img src="img/enate.png" alt="エナーテ メルロ・メルロ"><span>エナーテ メルロ・メルロ<small>スペイン</small></span></div><div class="bottle" style="left:40%;top:38%"><img src="img/raison.png" alt="ドメーヌ レゾン オレンジワイン"><span>ドメーヌ レゾン オレンジワイン<small>北海道</small></span></div><div class="bottle" style="left:62%;top:38%"><img src="img/mouton.png" alt="シャトー・ムートン・ロートシルト"><span>シャトー・ムートン・ロートシルト<small>フランス</small></span></div><div class="bottle" style="left:89%;top:34%"><img src="img/iwanohara.png" alt="岩の原ワイン 深雪花"><span>岩の原ワイン 深雪花<small>新潟県</small></span></div><div class="bottle" style="left:10%;top:70%"><img src="img/tinywhale.png" alt="タイニーホエール"><span>タイニーホエール<small>アルゼンチン</small></span></div><div class="bottle" style="left:37%;top:70%"><img src="img/vinsvivants.png" alt="レ・ヴァン・ヴィヴァン"><span>レ・ヴァン・ヴィヴァン<small>長野県</small></span></div><div class="bottle" style="left:62%;top:70%"><img src="img/exile.png" alt="エグジレ・ブラン"><span>エグジレ・ブラン<small>フランス</small></span></div>
+    </div>
+    <table class="tbl">
+      <tr><th>エリア</th><th>軸の位置</th><th>配置された例</th></tr>
+      <tr><td>上司への貢ぎ物</td><td>伝統的 × 色鮮やか</td><td>エナーテ、ドメーヌ レゾン</td></tr>
+      <tr><td>親へのお土産</td><td>伝統的 × 落ち着いた色</td><td>シャトー・ムートン・ロートシルト、岩の原ワイン 深雪花</td></tr>
+      <tr><td>友人とパーティ</td><td>革新的 × 色鮮やか</td><td>タイニーホエール、レ・ヴァン・ヴィヴァン</td></tr>
+      <tr><td>夫婦でしっぽり</td><td>革新的 × 落ち着いた色</td><td>エグジレ・ブラン</td></tr>
+    </table>
+    <p class="fine">※ 配置はスライド内の例を基にしています。ツアーでは、チームで選んだ3つのラベルを同じように配置してみましょう。</p>
+
+  </section>
+
+  <section class="sheet reveal head-jp" id="omake">
+    <div class="spiral" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
+    <hr class="head-rule">
+    <div class="sheet-head">
+      <div class="titles">
+        <h1 class="en">おまけ</h1>
+        <p class="sub-jp">ブドウ品種のマップ</p>
+      </div>
+      <p class="head-lead">赤・白ワインの代表的な品種を、「ボディ（軽い⇔重い）」と「酸味（低い⇔高い）」で整理しました。</p>
+    </div>
+    <hr class="head-rule">
+
+    <div class="wmaps"><div class="wm red"><h3>赤ワイン</h3><div class="plot"><div class="yl"><span>酸味 高い</span><span>酸味 低い</span></div><div class="dot" style="left:22%;top:14%"><span style="display:none"></span>ピノ・ノワール<small>軽い × 高酸</small></div><div class="dot" style="left:78%;top:24%"><span style="display:none"></span>カベルネ・ソーヴィニヨン<small>重い × 高酸</small></div><div class="dot" style="left:76%;top:38%"><span style="display:none"></span>シラーズ（シラー）<small>重い × 中〜高酸</small></div><div class="dot" style="left:18%;top:52%"><span style="display:none"></span>ガメイ<small>軽い × 中酸</small></div><div class="dot" style="left:62%;top:56%"><span style="display:none"></span>メルロー<small>中〜重い × 中酸</small></div><div class="dot" style="left:80%;top:82%"><span style="display:none"></span>ジンファンデル<small>重い × 低酸</small></div><div class="xl"><span>軽い</span><span>ボディ</span><span>重い</span></div></div></div><div class="wm white"><h3>白ワイン</h3><div class="plot"><div class="yl"><span>酸味 高い</span><span>酸味 低い</span></div><div class="dot" style="left:20%;top:14%"><span style="display:none"></span>リースリング<small>軽い × 高酸</small></div><div class="dot" style="left:55%;top:24%"><span style="display:none"></span>ソーヴィニヨン・ブラン<small>軽〜中 × 高酸</small></div><div class="dot" style="left:34%;top:42%"><span style="display:none"></span>シャルドネ（冷涼産地）<small>中 × 中〜高酸</small></div><div class="dot" style="left:68%;top:52%"><span style="display:none"></span>シャルドネ（温暖産地）<small>中〜重い × 中酸</small></div><div class="dot" style="left:44%;top:64%"><span style="display:none"></span>ピノ・グリ<small>中 × 中酸</small></div><div class="dot" style="left:82%;top:80%"><span style="display:none"></span>ヴィオニエ<small>重い × 低〜中酸</small></div><div class="xl"><span>軽い</span><span>ボディ</span><span>重い</span></div></div></div></div>
+    <p class="fine">※ 位置は目安です。シラーズは黒系果実＋スパイスの力強い味わい。縦軸＝酸味（上ほど高い）、横軸＝ボディ（右ほど重い）。</p>
+    <a class="back" href="../">← ツアーのページへ戻る</a>
+
+  </section>
+
+  <footer>千曲川ワイナリー ブランディングを探る旅 ／ Winery Tour 10.24–10.25</footer>
+</div>
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.04});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
