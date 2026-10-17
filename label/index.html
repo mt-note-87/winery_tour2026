@@ -277,7 +277,15 @@
   .lb{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:1rem;cursor:zoom-out;}
   .lb.on{display:flex;}
   .lb img{max-width:100%;max-height:100%;object-fit:contain;background:#fff;border-radius:6px;padding:.6rem;}
-  .lb span{position:absolute;top:.8rem;right:1rem;color:#fff;font-size:.85rem;}
+  .lb > span{position:absolute;top:.8rem;right:1rem;color:#fff;font-size:.85rem;}
+  .lb .wm{background:#fff;border-radius:6px;padding:1rem 1.2rem 1.6rem;width:min(94vw,86vh,720px);max-height:100%;overflow:auto;cursor:zoom-out;}
+  .lb .wm h3{font-size:1.3rem;}
+  .lb .wm .plot{margin-bottom:1.6rem;}
+  .lb .wm .dot{font-size:clamp(.72rem,2.6vw,.95rem);max-width:150px;}
+  .wm h3{cursor:zoom-in;}
+  .wm h3::after{content:"　🔍 タップで拡大";font-size:.7rem;font-weight:500;color:var(--muted);}
+  .lb .wm h3{cursor:zoom-out;}
+  .lb .wm h3::after{content:none;}
   .types{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.1rem,3vw,1.8rem);margin-top:1.6rem;}
   .type{display:flex;flex-direction:column;}
   .type .pic{height:200px;background:#fff;border:1.5px solid #2a2a2a;border-radius:4px;display:flex;align-items:center;justify-content:center;margin-bottom:.8rem;padding:.4rem;}
@@ -503,6 +511,14 @@
   const lbImg=lb.querySelector('img');
   document.querySelectorAll('.type .pic img').forEach(i=>i.addEventListener('click',()=>{lbImg.src=i.src;lbImg.alt=i.alt;lb.classList.add('on');}));
   lb.addEventListener('click',()=>lb.classList.remove('on'));
+  document.querySelectorAll('.wmaps .wm').forEach(w=>{
+    const h=w.querySelector('h3');h.setAttribute('role','button');h.tabIndex=0;
+    const open=()=>{const c=w.cloneNode(true);lb.querySelector('img').style.display='none';lb.querySelectorAll('.wm').forEach(n=>n.remove());lb.appendChild(c);lb.classList.add('on');};
+    h.addEventListener('click',open);
+    h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+  });
+  const closeLb=()=>{lb.classList.remove('on');lbImg.style.display='';lb.querySelectorAll('.wm').forEach(n=>n.remove());};
+  lb.addEventListener('click',closeLb);
   document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on');});
 </script>
 </body>
